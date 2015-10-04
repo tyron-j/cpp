@@ -1,8 +1,6 @@
 #include <iostream>
 #include "LinkedList.h"
 
-using namespace std;
-
 LinkedList::LinkedList(int FirstNodeData) {
 	FirstNode.Data = FirstNodeData;
 	Length = 1;
@@ -27,12 +25,12 @@ void LinkedList::Add(int NewNodeData) {
 void LinkedList::Iterate() {
 	Node * CurrentNode = &FirstNode;
 
-	cout << "The values in the linked list are:" << endl;
-	cout << (*CurrentNode).Data << endl;
+	std::cout << "The values in the linked list are:" << std::endl;
+	std::cout << (*CurrentNode).Data << std::endl;
 
 	while ((*CurrentNode).Next != NULL) {
 		CurrentNode = (*CurrentNode).Next;
 
-		cout << (*CurrentNode).Data << endl;
+		std::cout << (*CurrentNode).Data << std::endl;
 	}
 }
