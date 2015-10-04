@@ -35,6 +35,43 @@ void IOStack::Output() {
 	}
 }
 
+void IOStack::Peek() {
+	// to-do: incomplete implementation (?)
+	if (NumItems > 0) {
+		std::cout << (*Last).Data << std::endl;
+	}
+	else {
+		std::cout << "EMPTY" << std::endl;
+	}
+}
+
+void IOStack::Pop() {
+	// to-do: incomplete implementation
+	if (NumItems > 0 && (*Last).Prev != nullptr) {
+		IOStackNode * NewLast = (*Last).Prev;
+		(*NewLast).Next = nullptr;
+
+		delete Last;
+
+		Last = NewLast;
+	}
+}
+
+void IOStack::Push(int Number) {
+	// to-do: incomplete implementation
+	IOStackNode * NewNode = new IOStackNode(Number);
+	(*Last).Next = NewNode;
+	Last = NewNode;
+
+	NumItems++;
+
+	Peek();
+}
+
+void IOStack::Inc(int NumBotItems, int IncValue) {
+	//
+}
+
 void IOStack::Interpret(std::string Operation) {
 	// pointers
 	int * A = new int;
@@ -47,12 +84,12 @@ void IOStack::Interpret(std::string Operation) {
 	*OpName = Operation.substr(0, Operation.find(" "));
 
 	if (*OpName == "pop") {
-		// Pop();
+		Pop();
 	}
 	else if (*OpName == "push") {
 		*A = std::stoi(Operation.substr(Operation.find(" "), *OpLen));
 
-		// Push(*A);
+		Push(*A);
 	}
 	else if (*OpName == "inc") {
 		// Delimiter indeces
@@ -65,8 +102,10 @@ void IOStack::Interpret(std::string Operation) {
 		*A = std::stoi(Operation.substr(*FirstIdx + 1, *OpLen - *SecondIdx));
 		*B = std::stoi(Operation.substr(*SecondIdx + 1, *OpLen));
 
-		std::cout << *A << std::endl;
-		std::cout << *B << std::endl;
+		// std::cout << *A << std::endl;
+		// std::cout << *B << std::endl;
+
+		Inc(*A, *B);
 
 		delete FirstIdx;
 		delete SecondIdx;
